@@ -1,0 +1,69 @@
+@import "../../scss/default/color_variable";
+.cs-jury.cs-style1 {
+  width: 530px;
+  background-color: $background;
+  border-radius: 15px;
+  height: 250px;
+  border: 1px solid $accent;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 40px;
+  .cs-jury_icon {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+  .cs-jury_icon img {
+    border-radius: 8px;
+    width: 80%;
+    height: 150px;
+  }
+
+  .cs-jury-content{
+    margin-top: 55px;
+    text-align: left;
+    margin-right: 20px;
+  }
+
+  .cs-jury_title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: $accent;
+  }
+  .cs-jury_subtitle {
+    line-height: 1.75em;
+  }
+  @media (max-width: 991px) {
+    max-width: 100%;
+    .cs-jury_title {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+  }
+}
+.cs-jury.cs-style2 {
+  max-width: 350px;
+  margin: auto;
+  .cs-jury_icon {
+    margin-bottom: 25px;
+  }
+  .cs-jury_title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .cs-jury_subtitle {
+    line-height: 1.75em;
+  }
+
+
+
+  @media (max-width: 991px) {
+    max-width: 100%;
+    .cs-jury_title {
+      font-size: 26px;
+      margin-bottom: 10px;
+      margin-bottom: 20px;
+    }
+  }
+}

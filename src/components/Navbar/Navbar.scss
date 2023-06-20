@@ -1,0 +1,79 @@
+@import "../../scss/default/color_variable";
+
+.navbar {
+  position: fixed; z-index: 99999; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #181818;
+  padding: 10px;
+  color: #fcc100;
+ 
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: row;
+  padding-left: 15px;
+}
+
+.navbar-right {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5px;
+}
+
+.navbar-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 15px;
+  color: #f1c40f;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+}
+
+.navbar-menu-item {
+  margin-right: 15px;
+  color: #f1c40f;
+  text-decoration: none;
+  font-weight: 500;
+  word-spacing: 4px;
+}
+
+@media screen and (max-width: 575px) {
+  .navbar {
+    padding: 5px;
+  }
+
+  .navbar-right {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .navbar-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  .navbar-menu{
+    flex-direction: row;
+    font-size: 10px;
+  }
+
+  .navbar-menu-item{
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

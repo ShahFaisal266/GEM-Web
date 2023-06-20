@@ -1,0 +1,59 @@
+@import "../../scss/default/color_variable";
+.cs-win.cs-style1 {
+  width: 300px;
+  margin: auto;
+  background-color: $background;
+  border-radius: 15px;
+  height: 450px;
+  border: 1px solid $accent;
+  .cs-win_icon {
+    padding-bottom: 10px;
+  }
+  .cs-win_icon img {
+    border-radius: 8px;
+  }
+
+  .cs-win-content{
+    text-align: left;
+    padding: 20px;
+  }
+  .cs-win_title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .cs-win_subtitle {
+    line-height: 1.75em;
+  }
+  @media (max-width: 991px) {
+    max-width: 100%;
+    .cs-win_title {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+  }
+}
+.cs-win.cs-style2 {
+  max-width: 350px;
+  margin: auto;
+  .cs-win_icon {
+    margin-bottom: 25px;
+  }
+  .cs-win_title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .cs-win_subtitle {
+    line-height: 1.75em;
+  }
+
+
+
+  @media (max-width: 991px) {
+    max-width: 100%;
+    .cs-win_title {
+      font-size: 26px;
+      margin-bottom: 10px;
+      margin-bottom: 20px;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+@import "../../scss/default/color_variable";
+.cs-prizes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .cs-prizes-position {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // padding-left: 30px;
+    justify-content: space-around;
+  }
+
+  .cs-prize-icon {
+    margin-bottom: 20px;
+    color: $accent;
+  }
+
+  .cs-prize-icon2 {
+    margin-bottom: -10px;
+    color: $accent;
+    margin-top: 30px;
+  }
+
+  .cs-prize-icon3 {
+    margin-bottom: -30px;
+    color: $accent;
+    margin-top: 50px;
+  }
+
+  .cs-prize-icon icon {
+    width: 80%;
+    height: 70px;
+  }
+
+  .cs-content {
+    background-color: $background;
+    border-top: 2px solid $accent;
+    width: 135%;
+    height: 180px;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    align-self: center;
+  }
+
+  .cs-content h4 {
+    margin-top: 35px;
+  }
+
+  .cs-content2 {
+    background-color: $background;
+    border-top: 2px solid $accent;
+    width: 135%;
+    height: 160px;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 28px;
+    text-align: center;
+    align-self: center;
+  }
+  .cs-content2 h4 {
+    margin-top: 25px;
+  }
+  .cs-content3 {
+    background-color: $background;
+    border-top: 2px solid $accent;
+    width: 135%;
+    height: 140px;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 48px;
+    text-align: center;
+    align-self: center;
+  }
+  .cs-content3 h4 {
+    margin-top: 20px;
+  }
+
+  .space{
+    width: 5%;
+  }
+
+}

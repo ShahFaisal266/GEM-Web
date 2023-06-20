@@ -1,0 +1,59 @@
+@import "../../scss/default/color_variable";
+
+.cs-subscription{
+    display: flex;
+    flex-direction: column;
+    background-color: $background;
+    padding: 40px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $accent;
+    margin-left: 20px;
+    margin-top: 20px;
+
+    .cs-sub-header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 2px solid $border;
+        width: 100%;
+    }
+
+    .cs-sub-header2{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cs-sub-header2 p{
+        margin-top: 20px;
+    }
+
+    .cs-sub-type{
+        color: $accent;
+    }
+
+    .icon-star{
+        color: $accent;
+        margin-bottom: 10px;
+    }
+
+    .cs-btn-sub{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 26px;
+        transition: all 0.3s ease;
+        border: transparent;
+        color: $primary;
+        position: relative;
+        line-height: 1.5em;
+        font-weight: 600;
+        border-radius: 15px;
+        background: $button;
+        color: #fff;
+        margin-top: 10px;
+        width: 100%;
+        border: 1.5px solid $button;
+      }
+}

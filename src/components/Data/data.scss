@@ -1,0 +1,153 @@
+@import "../../scss/default/color_variable";
+/*--------------------------------------------------------------
+  21. FunFact
+----------------------------------------------------------------*/
+.cs-data_wrap_2{
+  display: flex;
+  align-items: center;
+  background: linear-gradient(267.18deg, #161616 0%, #080808 100%);
+  border-radius: 15px;
+  padding: 60px 80px;
+  position: relative;
+  z-index: 1;
+  box-shadow: initial;
+  justify-content: center;
+
+  .cs-data_shape {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    + * {
+      position: relative;
+      z-index: 2;
+    }
+    animation: rotate 4s linear infinite; 
+  }
+
+  @keyframes rotate {
+    0%{
+      border: 2px solid $accent;
+    }
+    100% {
+      border: 2px solid $accent;
+    }
+  }
+  &.cs-no_shadow {
+    box-shadow: initial;
+  }
+}
+
+.cs-data-content{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
+
+.cs-data.cs-style2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 50px;
+  .cs-data_number {
+    margin: 0 20px 0 0;
+    font-size: 40px;
+    line-height: 1.3em;
+    color: $accent;
+  }
+  .cs-data_title {
+    font-size: 18px;
+    color: $ternary;
+    margin: 0;
+    margin-top: 3px;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+
+// @media screen and (max-width: 1399px) {
+//   .cs-data_wrap,
+//   .cs-data_wrap_2 {
+//     padding: 60px 50px;
+//   }
+//   .cs-data_wrap_2.cs-type1 {
+//     margin-top: -102px;
+//   }
+//   .cs-data_wrap {
+//     .cs-data_left {
+//       width: 38%;
+//     }
+//     .cs-data_right {
+//       padding-left: 50px;
+//       width: 62%;
+//     }
+//   }
+// }
+// @media screen and (max-width: 1380px) {
+//   .cs-data_heading h2 {
+//     font-size: 42px;
+//     margin-bottom: 10px;
+//   }
+//   .cs-data.cs-style1 {
+//     .cs-data_number {
+//       font-size: 42px;
+//     }
+//     .cs-data_text span {
+//       font-size: 18px;
+//       margin-top: -8px;
+//       margin-bottom: -5px;
+//     }
+//   }
+//   .cs-data.cs-style2 {
+//     .cs-data_number {
+//       font-size: 42px;
+//     }
+//     .cs-data_title {
+//       font-size: 20px;
+//     }
+//   }
+// }
+// @media screen and (max-width: 1199px) {
+//   .cs-data_wrap {
+//     display: block;
+//   }
+//   .cs-data_wrap .cs-data_right {
+//     padding-left: 0;
+//     width: 100%;
+//   }
+//   .cs-data_wrap .cs-data_left {
+//     width: 100%;
+//     margin-bottom: 50px;
+//   }
+//   .cs-data_wrap_2 .cs-datas  {
+//     display: grid;
+//     grid-gap: 10px 25px;
+//   }
+// }
+// @media screen and (max-width: 991px) {
+//   .cs-data_wrap .cs-data_left {
+//     margin-bottom: 30px;
+//   }
+// }
+// @media screen and (max-width: 767px) {
+//   .cs-datas {
+//     grid-gap: 15px 15px;
+//     grid-template-columns: repeat(1, 1fr);
+//   }
+// }
+// @media screen and (max-width: 575px) {
+//   .cs-datas {
+//     grid-gap: 15px 15px;
+//     grid-template-columns: repeat(1, 1fr);
+//   }
+//   .cs-data_wrap,
+//   .cs-data_wrap_2 {
+//     padding: 40px 30px;
+//   }
+// }

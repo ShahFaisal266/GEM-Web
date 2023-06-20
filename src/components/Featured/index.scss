@@ -1,0 +1,51 @@
+@import "../../scss/default/color_variable";
+
+.cs-feature-carousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+
+    .cs-feature-img{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 2rem;
+         margin-bottom: 20px;
+         margin: 0% 0.5rem;
+         
+    }
+    .carousel .slider-wrapper {
+      width: 55rem;
+    }
+  
+
+    .cs-feature-img img{
+        border-radius: 3px;
+        width: 17rem;
+        height: 18rem;
+        
+    }
+
+    .cs-legend{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: $accent;
+        font-weight: 600;
+
+    }
+
+    @media screen and (max-width: 575px) {
+        flex-direction: column;
+        align-items: center;
+    
+        .cs-feature-img {
+          margin-bottom: 10px;
+        }
+    
+        .cs-feature-img img {
+          width: 100%;
+          max-width: 300px;
+          height: auto;
+        }
+      }
+}

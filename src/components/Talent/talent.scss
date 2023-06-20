@@ -1,0 +1,249 @@
+@import "../../scss/default/color_variable";
+
+.cs-talent-about {
+  background-color: $background;
+  padding: 80px;
+  width: 100%;
+  border-radius: 15px;
+  border-top: 2px solid $accent;
+  border-bottom: 2px solid $accent;
+
+  .cs-talent-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cs-talent-title button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 26px;
+    transition: all 0.3s ease;
+    border: transparent;
+    color: $primary;
+    position: relative;
+    font-weight: 600;
+    border-radius: 15px;
+    background-color: $accent;
+    color: #fff;
+    width: 15%;
+    height: 50px;
+  }
+  .cs-talent-data {
+    margin-top: 40px;
+    width: 100%;
+    justify-content: left;
+  }
+
+  .cs-talent-name {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    border-bottom: 1px solid $border;
+    margin-bottom: 20px;
+    justify-content: left;
+  }
+
+  .cs-talent-p {
+    font-size: 18px;
+    color: white;
+    width: 25%;
+  }
+
+  .cs-icon-color {
+    color: $accent;
+    margin-top: 45px;
+  }
+
+  .cs-icon {
+    color: $accent;
+    margin-right: 40px;
+  }
+
+  .cs-crud {
+    margin-left: 350px;
+  }
+
+  .cs-crud-icon {
+    color: $accent;
+    margin-right: 20px;
+  }
+
+  .col-sm-3 button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 26px;
+    transition: all 0.3s ease;
+    border: transparent;
+    color: $primary;
+    position: relative;
+    font-weight: 600;
+    border-radius: 15px;
+    background-color: $accent;
+    color: #fff;
+    width: 70%;
+    height: 50px;
+    margin-top: 37px;
+  }
+}
+
+.cs-talent-form {
+  background-color: $background;
+  padding: 80px;
+  width: 100%;
+  border-radius: 15px;
+  border-top: 2px solid $accent;
+  border-bottom: 2px solid $accent;
+
+  .cs-form-name {
+    margin-bottom: 20px;
+    justify-content: left;
+  }
+
+  .cs-form-name p {
+    font-size: 18px;
+    color: white;
+  }
+  .cs-form-des{
+    font-size: 14px;
+    color: $ternary;
+  }
+
+  .cs-form-button {
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: 13px 26px;
+    transition: all 0.3s ease;
+    border: transparent;
+    color: $primary;
+    position: relative;
+    font-weight: 600;
+    border-radius: 15px;
+    background-color: $accent;
+    color: #fff;
+    width: 15%;
+    height: 50px;
+    margin-right: 20px;
+    align-self: center;
+  }
+}
+
+.card-sorting {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: #fff;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.cs-content-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-left: -50px;
+}
+
+.cs-button {
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding: 13px 26px;
+  transition: all 0.3s ease;
+  border: transparent;
+  color: $primary;
+  position: relative;
+  font-weight: 600;
+  border-radius: 15px;
+  background-color: $accent;
+  color: #fff;
+  width: 15%;
+  height: 50px;
+  margin-right: 20px;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.cs-add-btn{
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: 13px 26px;
+    transition: all 0.3s ease;
+    border: transparent;
+    color: $primary;
+    position: relative;
+    font-weight: 600;
+    border-radius: 15px;
+    background-color: $accent;
+    color: #fff;
+    width: 60%;
+    height: 50px;
+    margin-right: 20px;
+    align-self: center;
+    margin-top: 33px;
+}
+
+.cs-achievement-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cs-achievement-title button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  transition: all 0.3s ease;
+  border: transparent;
+  color: $primary;
+  position: relative;
+  font-weight: 600;
+  border-radius: 15px;
+  background-color: $accent;
+  color: #fff;
+  width: 15%;
+  height: 50px;
+   margin-top: -30px;
+}
+
+.cs-achievement-box{
+  width: 530px;
+  background-color: $background;
+  border-radius: 15px;
+  height: 210px;
+  max-height: 1000px;
+  border-top: 2px solid $accent;
+  border-bottom: 2px solid $accent;
+  padding: 30px;
+
+  .cs-achievement-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cs-achievement-header h4{
+    color: $accent;
+  }
+
+  .cs-crud-icon{
+    color: $accent;
+    padding-inline: 2px;
+  }
+}
+
+.cs-flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
