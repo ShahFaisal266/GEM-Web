@@ -4,7 +4,7 @@ function PostDetails() {
   const [isMessageModelOpen, setMessageModelOpen] = useState(false);
   const [share, setshare] = useState(false);
   const [ShowHire, setShowHire] = useState(false);
-  const [messageSend , setmessageSend]=useState(false);
+  const [messageSend, setmessageSend] = useState(false);
 
   // State variables to store the input values
   const [fullName, setFullName] = useState("");
@@ -27,7 +27,7 @@ function PostDetails() {
   const handleSendClick = () => {
     // Perform any necessary actions with the input values
     // Display a confirmation message or perform other logic
-    setmessageSend(true)
+    setmessageSend(true);
   };
   const openMessageModel = () => {
     setMessageModelOpen(true);
@@ -131,7 +131,10 @@ function PostDetails() {
       {isMessageModelOpen ? (
         <div className="fixed inset-0 flex items-center justify-center  ">
           <div className="bg-[#2a2a2a] p-8 w-96">
-          <i class='bx bx-x text-end fs-3 cursor-pointer' onClick={()=>setMessageModelOpen(false)}></i>
+            <i
+              class="bx bx-x text-end fs-3 cursor-pointer"
+              onClick={() => setMessageModelOpen(false)}
+            ></i>
             <h2 className="text-xl font-bold mb-4 text-center"> Message</h2>
             <input
               type="text"
@@ -169,24 +172,29 @@ function PostDetails() {
       {messageSend ? (
         <div className="fixed inset-0 flex items-center justify-center  ">
           <div className="bg-gray-800 p-8 w-96 border   ">
-          <i class='bx bx-x text-end fs-3 cursor-pointer' onClick={()=>setmessageSend(false)}></i>
-               
-        <div className="flex justify-center" >
-        <i class='bx bxs-envelope-open text-center  text-[orange]' style={{fontSize:"7rem"}}></i>
-        </div>
-         <p className="text-center pt-3 pb-3 fs-3 fw-bold">Send !</p>
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.  </p>
-           
-           
-              
+            <i
+              class="bx bx-x text-end fs-3 cursor-pointer"
+              onClick={() => setmessageSend(false)}
+            ></i>
+
+            <div className="flex justify-center">
+              <i
+                class="bx bxs-envelope-open text-center  text-[orange]"
+                style={{ fontSize: "7rem" }}
+              ></i>
+            </div>
+            <p className="text-center pt-3 pb-3 fs-3 fw-bold">Send !</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
           </div>
         </div>
-
-      ):null}
+      ) : null}
       {ShowHire ? (
         <div className="fixed inset-0 flex items-center justify-center  ">
           <div className="bg-[#2a2a2a] p-8 w-96">
-          <i class='bx bx-x text-end fs-3 cursor-pointer' onClick={()=>setShowHire(false)}></i>
+            <i
+              class="bx bx-x text-end fs-3 cursor-pointer"
+              onClick={() => setShowHire(false)}
+            ></i>
             <h2 className="text-xl font-bold mb-4 text-center"> Hire Me</h2>
             <input
               type="text"
@@ -209,8 +217,8 @@ function PostDetails() {
                 Select budget
               </option>
               <option value="low">Low</option>
-              <option value="medium"  >Medium</option>
-              <option value="high" >High</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
             </select>
             <button
               onClick={handleSendClick}

@@ -39,6 +39,8 @@ const Nav = () => {
     if (newPassword !== confirmPassword) {
       alert("New password and confirm password do not match");
       return;
+    } else{
+      alert("Passwords match, proceed with further actions")
     }
 
     // Handle saving the changes here
@@ -327,7 +329,7 @@ const Nav = () => {
                                 />
                               </div>
                               <button
-                                className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                                className="px-4 py-2 text-white bg-warning rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                                 type="submit"
                               >
                                 Save Changes

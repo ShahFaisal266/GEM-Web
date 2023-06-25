@@ -1,21 +1,68 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { pageTitle } from "../../helper";
 import Div from "../Div";
 import PageHeading from "../PageHeading";
 import Spacing from "../Spacing";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { login } from "../../Redux/UserReducer";
+import { useDispatch,useSelector } from "react-redux";
+import { Alert } from "bootstrap";
+
+
 export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState('')
   const history = useNavigate();
-
-  const handleClick = () => {
-    history("/talenprofile"); // Replace '/home' with the actual path to your home page
-  };
-
+  
+  const dispatch = useDispatch();
   pageTitle("Login");
   useEffect(() => {
     window.scrollTo(0, 0);
+    
   }, []);
+  const cart = useSelector((state) => state?.user?.user)
+  console.log(cart,"added")
+ 
+
+
+  const handleClick = () => {
+    
+    // Make the login request
+    axios.post("http://localhost:5000/api/auth/login", {
+        email: username,
+        password: password,
+      })
+      .then((response) => {
+        // Handle the successful login response
+        // For example, dispatch a login action
+        console.log("started")
+        const result =JSON.stringify(response.data);
+        dispatch(login(response.data));
+        // Redirect to a different page
+        //alert(result)
+        history("/talenprofile"); // Replace '/talenprofile' with the actual path to your profile page
+      })
+      .catch((error) => {
+        // Handle the error
+        Alert("Something Wrong")
+        setIsError(true);
+        setMessage(error.message);
+      });
+      
+  };
+
+
+
+
+
+
+
+
+ 
   return (
     <>
       <PageHeading
@@ -38,6 +85,8 @@ export default function Login() {
                   type="text"
                   className="cs-form_field"
                   placeholder="example@gmail.com"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <Spacing lg="20" md="20" />
               </Div>
@@ -47,6 +96,8 @@ export default function Login() {
                   type="text"
                   className="cs-form_field"
                   placeholder="********"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <Spacing lg="25" md="25" />
               </Div>

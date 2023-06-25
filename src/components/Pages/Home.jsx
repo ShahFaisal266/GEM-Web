@@ -11,6 +11,7 @@ import MovingText from "../MovingText";
 import LogoList from "../LogoList";
 import Cta from "../Cta";
 import Hero from "../Hero";
+import Slider from "react-slick";
 
 // Import Swiper styles
 import "swiper/css";
@@ -224,63 +225,65 @@ export default function Home() {
         <h1 className="fs-2 fw-bold text-white text-center pb-5">
           Featured Talent
         </h1>
+      
+
         <Swiper
           slidesPerView={5}
-          spaceBetween={10}
+          spaceBetween={-3}
           className="home_page_newsLatter"
-          autoplay={{ delay: 1000, disableOnInteraction: false }}
+          // autoplay={{ delay: 1000, disableOnInteraction: false }}
           loop={true} // Enable continuous loop // Set the delay (in milliseconds) between slides
         >
           <SwiperSlide className="home_page_newsLatter-item">
-           <div>
+           <div className="">
            <img className="" src="/images/slider2.jpg" alt="" />
-           <p className="pt-2 fs-5 fw-bold">True Life</p>
+           <p className="pt-2 fs-5 fw-bold text-white">True Life</p>
            </div>
              
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
           <div>
           <img className="" src="/images/portfolio_12.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Life Enjoy</p>
+          <p className="pt-2 fs-5 fw-bold text-white">Life Enjoy</p>
           </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
           <div> <img className="" src="/images/portfolio_13.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Life Lovely</p> </div>
+          <p className="pt-2 fs-5 fw-bold text-white">Life Lovely</p> </div>
            
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
           <div>
           <img className="" src="/images/portfolio_14.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Cycle Goal</p> 
+          <p className="pt-2 fs-5 fw-bold text-white">Cycle Goal</p> 
           
           </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
           <div>
           <img className="" src="/images/portfolio_14.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Cycle Goal</p> 
+          <p className="pt-2 fs-5 fw-bold text-white">Cycle Goal</p> 
           
           </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
           <div>
           <img className="" src="/images/portfolio_14.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Cycle Goal</p> 
+          <p className="pt-2 fs-5 fw-bold text-white">Cycle Goal</p> 
           
           </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
             <div>
           <img className="" src="/images/portfolio_14.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Cycle Goal</p> 
+          <p className="pt-2 fs-5 fw-bold text-white">Cycle Goal</p> 
           
           </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newsLatter-item">
             <div>
           <img className="" src="/images/portfolio_14.jpeg" alt="" />
-          <p className="pt-2 fs-5 fw-bold">Cycle Goal</p> 
+          <p className="pt-2 fs-5 fw-bold text-white">Cycle Goal</p> 
           
           </div>
           </SwiperSlide>
@@ -300,9 +303,9 @@ export default function Home() {
         >
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/slider2.jpg" alt="" />
-            <div className="bg-[#2a2a2a]">
-            <p className="pt-4 fs-4 ps-3">Apna Developers</p>
-            <p className="ps-3 pb-3">
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
               soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
@@ -312,9 +315,9 @@ export default function Home() {
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/portfolio_12.jpeg" alt="" />
-            <div className="bg-[#2a2a2a]">
-            <p className="pt-4 fs-4 ps-3">Apna Developers</p>
-            <p className="ps-3 pb-3">
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
               soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
@@ -324,9 +327,9 @@ export default function Home() {
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/portfolio_13.jpeg" alt="" />
-            <div className="bg-[#2a2a2a]">
-            <p className="pt-4 fs-4 ps-3">Apna Developers</p>
-            <p className="ps-3 pb-3">
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
               soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
@@ -336,33 +339,63 @@ export default function Home() {
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/portfolio_14.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/portfolio_10.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/portfolio_9.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/slider2.jpg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_newscenter-item">
             <img src="/images/slider2.jpg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="bg-[#000] border-b border-cyan">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
         </Swiper>
       </div>
@@ -381,9 +414,9 @@ export default function Home() {
         >
           <SwiperSlide className="home_page_event-item">
             <img src="/images/slider2.jpg" alt="" />
-            <div className="bg-[#2a2a2a]">
-            <p className="pt-4 fs-4 ps-3">Apna Developers</p>
-            <p className="ps-3 pb-3">
+            <div className="border-b ">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
               soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
@@ -393,9 +426,9 @@ export default function Home() {
           </SwiperSlide>
           <SwiperSlide className="home_page_event-item">
             <img src="/images/portfolio_12.jpeg" alt="" />
-            <div className="bg-[#2a2a2a]">
-            <p className="pt-4 fs-4 ps-3">Apna Developers</p>
-            <p className="ps-3 pb-3">
+            <div className="border-b ">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
               soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
@@ -405,27 +438,51 @@ export default function Home() {
           </SwiperSlide>
           <SwiperSlide className="home_page_event-item">
             <img src="/images/portfolio_13.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="border-b ">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_event-item">
             <img src="/images/portfolio_14.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="border-b ">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_event-item">
             <img src="/images/portfolio_10.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="border-b ">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
           <SwiperSlide className="home_page_event-item">
             <img src="/images/portfolio_9.jpeg" alt="" />
-            <p className="text-white home_page_newscenter-item-title">
-              All RESOULATION
+            <div className="border-b ">
+            <p className="pt-4 fs-4 ps-3 text-white">Apna Developers</p>
+            <p className="ps-3 pb-3 text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Blanditiis itaque cum, a quis corporis est non eveniet, voluptas
+              soluta ipsa eius quae possimus perspiciatis voluptatum laudantium
+              incidunt sit ipsam provident?{" "}
             </p>
+            </div>
           </SwiperSlide>
         </Swiper>
       </div>

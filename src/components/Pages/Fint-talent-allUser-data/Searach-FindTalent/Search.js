@@ -45,14 +45,14 @@ function Search() {
        : ''}
       </div>
       <div className="container mt-5 d-flex flex-wrap justify-center gap-3">
-        <button className="btn btn-outline-info text-[orange]  text-center"
+        <button className="btn btn-warning  text-white  text-center"
          onClick={handleClick}>
-          <i className="bx bx-menu-alt-right fs-6 text-[orange]"></i> MORE
+          <i className="bx bx-menu-alt-right fs-6 text-[white]"></i> MORE
           FILTERS
         </button>
-        <button className="btn btn-outline-info ps-4 pe-4">
+        <button className="btn btn-warning  ps-4 pe-4 text-white fw-bold">
           {" "}
-          <i className="bx bx-search fs-6 text-[orange] pe-1 "></i> SEARCH
+          <i className="bx bx-search fs-6 text-[white] pe-1 "></i> SEARCH
         </button>
       </div>
     </>

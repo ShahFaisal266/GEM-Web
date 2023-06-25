@@ -2,35 +2,37 @@ import React from 'react'
 import Div from '../Div'
 import SearchWidget from '../Widget/SearchWidget'
 import SideMenuWidget from '../Widget/SideMenuWidget'
-
+import axios from 'axios';
+import { useEffect,useState } from 'react';
 export default function Eventbar() {
 
-  const categoryData = [
-    {
-      title: 'Muscial Concerts',
-      url:'/'
-    },
-    {
-      title: 'Festivals & Fairs',
-      url:'/'
-    },
-    {
-      title: 'Dance Event',
-      url:'/'
-    },
-    {
-      title: 'Theatre',
-      url:'/'
-    },
-    {
-      title: 'Dancing 2023',
-      url:'/'
-    },
-    {
-      title: 'All',
-      url:'/'
-    },
-  ]
+  const [postData, setPostData] = useState({});
+  const r=postData.toString().split(',');
+    useEffect(() => {
+  
+        // Fetch data using axios
+        axios.get('http://localhost:5000/api/events/categories')
+          .then(response => {
+            setPostData(response.data); // Set fetched data as an object
+            console.log(response.data);
+            
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }, []);
+      
+      const categoryData = [];
+  
+      r.forEach((item) => {
+        const category = {
+          title: item,
+          url: '/'
+        };
+      
+        categoryData.push(category);
+      });
+     
 
   return (
     <>

@@ -4,6 +4,7 @@ import TalentProfile from '../components/Talent'
  
 import Nav from "./Navbar/Nav"
 
+
 function TalentMain() {
   return (
     <>

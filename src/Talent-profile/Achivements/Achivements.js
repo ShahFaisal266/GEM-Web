@@ -1,23 +1,68 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 
 function Achivements() {
   const [isAdding, setIsAdding] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [postData,setPostData]=useState("")
+  const [showdata,setshowdata]=useState([]);
+  const [editData,setEditData]=useState("");
+  const cart = useSelector((state) => state?.user?.user[0])
+  console.log("Faisal"+cart.firstname);
 
   const handleAddClick = () => {
     setIsAdding(true);
   };
+  const handleEditClick=()=>{
+
+    axios.put(`http://localhost:5000/api/users/Achivement/find/${cart._id}`)
+    .then(response => {
+      setEditData(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+
+  }
+ 
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Achivement/find/${cart._id}`)
+    .then(response => {
+      setshowdata(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, [showdata])
 
   const handleCancelClick = () => {
     setIsAdding(false);
     setTitle("");
     setDescription("");
   };
+  const data = {
+    "programName":title,
+    "description":description,
+    "user":cart._id,
+  }
+  
 
   const handleSaveClick = () => {
     // Perform saving logic here
+    axios.post('http://localhost:5000/api/users/Achivement/',data)
+      .then(response => {
+        setPostData(response.data); // Set fetched data as an object
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
     setIsAdding(false);
     setTitle("");
     setDescription("");
@@ -39,74 +84,22 @@ function Achivements() {
 
       <div className="container mt-3">
         <div className="grid grid-cols-2 gap-5 md:grid-cols-2 sm:grid-cols-12">
-          <div className="bg-[#2a2a2a]">
-            <div className="container flex  p-3 justify-between items-center">
+        {showdata.map((item, index) => (
+          <div className="bg-[#2a2a2a]" key={index}>
+            <div className="container flex p-3 justify-between items-center">
               <div className="title-cart">
-                <p className="fs-5">Achievements</p>
+                <p className="fs-5">{item.programName}</p>
               </div>
               <div className="icons flex gap-2 pe-3">
-                <i class="bx bx-edit fs-4 text-success"></i>
+                <i className="bx bx-edit fs-4 text-success"></i>
                 <RiDeleteBin5Line className="fs-4 text-danger" />
               </div>
             </div>
             <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              voluptatem aspernatur maiores reiciendis vel!
+              {item.description}
             </p>
           </div>
-          <div className="bg-[#2a2a2a]">
-            <div className="container flex  p-3 justify-between items-center">
-              <div className="title-cart">
-                <p className="fs-5">Achievements</p>
-              </div>
-              <div className="icons flex gap-2 pe-3">
-                <i class="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
-              </div>
-            </div>
-            <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              voluptatem aspernatur maiores reiciendis vel!
-            </p>
-          </div>
-          <div className="bg-[#2a2a2a]">
-            <div className="container flex  p-3 justify-between items-center">
-              <div className="title-cart">
-                <p className="fs-5">Achievements</p>
-              </div>
-              <div className="icons flex gap-2 pe-3">
-                <i class="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
-              </div>
-            </div>
-            <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              voluptatem aspernatur maiores reiciendis vel!
-            </p>
-          </div>
-          <div className="bg-[#2a2a2a]">
-            <div className="container flex  p-3 justify-between items-center">
-              <div className="title-cart">
-                <p className="fs-5">Achievements</p>
-              </div>
-              <div className="icons flex gap-2 pe-3">
-                <i class="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
-              </div>
-            </div>
-            <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              voluptatem aspernatur maiores reiciendis vel!
-            </p>
-          </div>
+        ))}
         </div>
       </div>
       {isAdding && (

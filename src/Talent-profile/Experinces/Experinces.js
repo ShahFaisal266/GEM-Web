@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 function Experinces() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -7,18 +10,53 @@ function Experinces() {
   const [endDate, setEndDate] = useState("");
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
+  const [postdata,setPostData]=useState("");
+  const [experienceTime,setExpereinceTime]=useState("");
+  const [showdata,setshowdata]=useState([]);
+  const cart = useSelector((state) => state?.user?.user[0])
+  
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  }
+  
+
+
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Experience/find/${cart._id}`)
+      .then(response => {
+        setshowdata(response.data); // Set fetched data as an object
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, [showdata])
+  const data={
+    "user":cart._id,
+    "title":title,
+    "dateStart":startDate,
+    "dateEnd":endDate,
+    "description":description,
+    "experienceTime":experienceTime
+  }
 
   // Function to handle the form submission
   const handleSubmit = () => {
     // Perform any necessary actions with the form data
     // For example, you can send the data to an API or update the state
-    console.log("Form submitted:", {
-      title,
-      startDate,
-      endDate,
-      address,
-      description,
+    axios.post(`http://localhost:5000/api/users/Experience`,data)
+    .then(response => {
+      setPostData(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
     });
+
 
     // Reset the form fields
     setTitle("");
@@ -34,6 +72,10 @@ function Experinces() {
   // Function to handle the add button click
   const handleAddClick = () => {
     setIsModalOpen(true);
+  };
+
+  const handleCloseClick = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -52,120 +94,39 @@ function Experinces() {
       </div>
 
       <div className="container mt-3">
-        <div className="grid grid-cols-1">
-          <div className="bg-[#2a2a2a] w-100 border-b border-1 border-gray-300">
-            <div className="container flex p-3 justify-between items-center">
-              <div className="title-cart">
-                <p className="fs-5">infoTech Technology</p>
-              </div>
-              <div className="icons flex gap-2 pe-3">
-                <i className="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
-              </div>
-            </div>
-            <div className="time_&_date flex gap-5">
-              <div className="flex justify-center">
-                <i class="bx bx-log-out-circle fs-3 text-[orange]"></i>{" "}
-                <p className="ps-2" style={{ fontSize: "14px" }}>
-                  {" "}
-                  2 + Years Of Experinces
-                </p>
-              </div>
-              <div className="flex justify-center">
-                <i class="bx bx-location-plus fs-3 text-[orange]"></i>{" "}
-                <p p className="ps-2" style={{ fontSize: "14px" }}>
-                  Street 4th, chicago , USA
-                </p>
-              </div>
-            </div>
-            <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              Perspiciatis asperiores, eveniet aperiam fuga non pariatur veniam
-              perferendis, rerum laborum, distinctio enim dolorum quisquam
-              assumenda praesentium! Lorem ipsum, dolor sit amet consectetur
-              adipisicing elit. Illum totam fugit deleniti consectetur pariatur?
-              Nihil quia ab dolorum libero molestias facere perferendis numquam.
-              Dolores nihil blanditiis hic molestiae dolorum perferendis.
+  <div className="grid grid-cols-1">
+    {showdata.map((technology, index) => (
+      <div className="bg-[#2a2a2a] w-100 border-b border-1 border-gray-300" key={index}>
+        <div className="container flex p-3 justify-between items-center">
+          <div className="title-cart">
+            <p className="fs-5">{technology.title}</p>
+          </div>
+          <div className="icons flex gap-2 pe-3">
+            <i className="bx bx-edit fs-4 text-success"></i>
+            <RiDeleteBin5Line className="fs-4 text-danger" />
+          </div>
+        </div>
+        <div className="time_&_date flex gap-5">
+          <div className="flex justify-center">
+            <i className="bx bx-log-out-circle fs-3 text-[orange]"></i>{" "}
+            <p className="ps-2" style={{ fontSize: "14px" }}>
+              {technology.experienceTime}+ Years Of Experience
             </p>
           </div>
-          <div className="bg-[#2a2a2a] w-100 border-b border-1 border-gray-300">
-            <div className="container flex p-3 justify-between items-center">
-              <div className="title-cart">
-                <p className="fs-5">infoTech Technology</p>
-              </div>
-              <div className="icons flex gap-2 pe-3">
-                <i className="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
-              </div>
-            </div>
-            <div className="time_&_date flex gap-5">
-              <div className="flex justify-center">
-                <i class="bx bx-log-out-circle fs-3 text-[orange]"></i>{" "}
-                <p className="ps-2" style={{ fontSize: "14px" }}>
-                  {" "}
-                  2 + Years Of Experinces
-                </p>
-              </div>
-              <div className="flex justify-center">
-                <i class="bx bx-location-plus fs-3 text-[orange]"></i>{" "}
-                <p p className="ps-2" style={{ fontSize: "14px" }}>
-                  Street 4th, chicago , USA
-                </p>
-              </div>
-            </div>
-            <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              Perspiciatis asperiores, eveniet aperiam fuga non pariatur veniam
-              perferendis, rerum laborum, distinctio enim dolorum quisquam
-              assumenda praesentium! Lorem ipsum, dolor sit amet consectetur
-              adipisicing elit. Illum totam fugit deleniti consectetur pariatur?
-              Nihil quia ab dolorum libero molestias facere perferendis numquam.
-              Dolores nihil blanditiis hic molestiae dolorum perferendis.
-            </p>
-          </div>
-          <div className="bg-[#2a2a2a] w-100 border-b border-1 border-gray-300">
-            <div className="container flex p-3 justify-between items-center">
-              <div className="title-cart">
-                <p className="fs-5">infoTech Technology</p>
-              </div>
-              <div className="icons flex gap-2 pe-3">
-                <i className="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
-              </div>
-            </div>
-            <div className="time_&_date flex gap-5">
-              <div className="flex justify-center">
-                <i class="bx bx-log-out-circle fs-3 text-[orange]"></i>{" "}
-                <p className="ps-2" style={{ fontSize: "14px" }}>
-                  {" "}
-                  2 + Years Of Experinces
-                </p>
-              </div>
-              <div className="flex justify-center">
-                <i class="bx bx-location-plus fs-3 text-[orange]"></i>{" "}
-                <p p className="ps-2" style={{ fontSize: "14px" }}>
-                  Street 4th, chicago , USA
-                </p>
-              </div>
-            </div>
-            <p className="ps-2 pe-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-              quae culpa quo excepturi possimus cupiditate ullam accusantium
-              aliquam veniam commodi? Impedit eos nesciunt ex corrupti
-              Perspiciatis asperiores, eveniet aperiam fuga non pariatur veniam
-              perferendis, rerum laborum, distinctio enim dolorum quisquam
-              assumenda praesentium! Lorem ipsum, dolor sit amet consectetur
-              adipisicing elit. Illum totam fugit deleniti consectetur pariatur?
-              Nihil quia ab dolorum libero molestias facere perferendis numquam.
-              Dolores nihil blanditiis hic molestiae dolorum perferendis.
+          <div className="flex justify-center">
+            <i className="bx bx-location-plus fs-3 text-[orange]"></i>{" "}
+            
+            <p p className="ps-2" style={{ fontSize: "14px" }}>
+            {" Start " + formatDate(technology.dateStart) + " - End " + formatDate(technology.dateEnd)}
             </p>
           </div>
         </div>
+        <p className="ps-2 pe-2">{technology.description}</p>
       </div>
+    ))}
+  </div>
+</div>
+
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -207,12 +168,26 @@ function Experinces() {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Your Description"
             ></textarea>
+            <label className="mb-3 pt-2">Experience:</label>
+            <textarea
+              className="mb-2 p-1 bg-[#2a2a2a] border-b border-1 border-light w-[32rem]"
+              value={experienceTime}
+              onChange={(e) => setExpereinceTime(e.target.value)}
+              placeholder="Your Experience"
+            ></textarea>
+            
             <div className="flex justify-center mt-3">
               <button
                 className="bg-[orange] hover:bg-gray-700 text-white font-bold py-1 px-4 mr-2 rounded"
                 onClick={handleSubmit}
               >
                 Add
+              </button>
+              <button
+                className="bg-[orange] hover:bg-gray-700 text-white font-bold py-1 px-4 mr-2 rounded"
+                onClick={handleCloseClick}
+              >
+                Close
               </button>
             </div>
           </div>

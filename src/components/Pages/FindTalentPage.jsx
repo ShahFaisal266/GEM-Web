@@ -1,7 +1,27 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "../../css/Find_telent.css";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
+
 
 function FindTalentPage() {
+  const cart = useSelector((state) => state?.user?.user[0])
+  const [email,setEmail]=useState("");
+  
+  const emailSend=()=>{
+
+    axios.get("http://localhost:5000/api/users/Noti", email)
+      .then((response) => {
+        console.log("Email sent successfully:", response.data);
+        // Reset form fields
+
+      })
+      .catch((error) => {
+        console.error("Error occurred while sending the email:", error);
+      });
+  }
+
   return (
     <>
       <div
@@ -15,7 +35,7 @@ function FindTalentPage() {
       >
         <div className="container  flex mt-5 ">
           <div className="left">
-            <p className="fs-4 fw-bold pe-4">Good Evening Salman</p>
+            <p className="fs-4 fw-bold pe-4">Good Evening {cart.firstname+" "+cart.lastname}</p>
           </div>
           <div className="middle">
             <div class="row g-3">
@@ -25,6 +45,8 @@ function FindTalentPage() {
                   type="text"
                   class="form-control find_talentInput"
                   placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   aria-label="First name"
                   style={{ width: "15rem", height: "2.5rem" }}
                 />
@@ -38,6 +60,7 @@ function FindTalentPage() {
                     borderRadius: "none",
                     background: "#ffa500d4",
                   }}
+                  onClick={emailSend}
                 >
                   Refer
                 </button>

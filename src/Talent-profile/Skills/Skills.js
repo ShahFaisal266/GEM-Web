@@ -1,22 +1,66 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Skills() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dance, setDance] = useState("");
   const [danceTypes, setDanceTypes] = useState("");
+  const [postdata,setPostData]=useState("");
+  const [showdata,setshowdata]=useState([]);
+  const cart = useSelector((state) => state?.user?.user[0])
+
 
   // Function to handle opening the modal
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Skill/find/${cart._id}`)
+      .then(response => {
+        setshowdata(response.data); // Set fetched data as an object
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, [showdata])
+  const data={
+    "skillName":dance,
+    "typeofSkill":danceTypes,
+    "user":cart._id
+  }
   // Function to handle submitting the modal form
   const handleSubmit = () => {
     // Perform any necessary actions with the entered data
     console.log(dance, danceTypes);
+  
+      axios.post(`http://localhost:5000/api/users/Skill`,data)
+        .then(response => {
+          setPostData(response.data); // Set fetched data as an object
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+   
 
     // Close the modal
     setIsModalOpen(false);
+  };
+  useEffect(() => {
+    handleSubmit();
+    }, [])
+
+    //other
+    const [selectedOption, setSelectedOption] = useState("");
+    const handleOtherOptionChange = (e) => {
+    setDance(e.target.value);
   };
   return (
     <>
@@ -33,18 +77,12 @@ function Skills() {
         <table className="table-auto mt-5">
           <thead></thead>
           <tbody>
-            <tr>
-              <td>Dance :</td>
-              <td>classical Dance</td>
-            </tr>
-            <tr>
-              <td>Singing :</td>
-              <td>Amazing</td>
-            </tr>
-            <tr>
-              <td>Painting :</td>
-              <td>Alert walt</td>
-            </tr>
+          {showdata.map((item, index) => (
+      <tr key={index}>
+        <td>{item.skillName}:</td>
+        <td>{item.typeofSkill}</td>
+      </tr>
+    ))}
           </tbody>
         </table>
 
@@ -63,6 +101,7 @@ function Skills() {
                 <option value="classical">Classical Dance</option>
                 <option value="contemporary">Contemporary Dance</option>
                 <option value="hip-hop">Hip Hop Dance</option>
+                <option value="other">Other</option>
                 {/* Add more dance options */}
               </select>
               <label className="mb-2">Dance Types:</label>
@@ -92,6 +131,7 @@ function Skills() {
                     <option value="locking">Locking</option>
                     <option value="popping">Popping</option>
                   </>
+                  
                 )}
                 {/* Add more dance type options */}
               </select>
@@ -101,6 +141,12 @@ function Skills() {
                   onClick={handleSubmit}
                 >
                   Add
+                </button>
+                <button
+                  className="bg-[orange] hover:bg-gray-700 text-white font-bold py-1 px-4 mr-2 rounded"
+                  onClick={handleCloseModal}
+                >
+                  Close
                 </button>
               </div>
             </div>

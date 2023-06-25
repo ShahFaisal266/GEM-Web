@@ -7,7 +7,10 @@ import Spacing from "../Spacing";
 import Eventbar from "../Sidebar/Eventbar";
 import EventFound from "../PricingTable/EventFound";
 
+
+
 export default function EventPage() {
+  //const [postData, setPostData] = useState([]);
   pageTitle("Events");
   useEffect(() => {
     window.scrollTo(0, 0);

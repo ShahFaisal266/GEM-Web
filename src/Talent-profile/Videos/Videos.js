@@ -1,12 +1,50 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Videos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [postData,setPostData]=useState("");
+  const [videoUrl, setvideourl] = useState("");
+  const [date, setDate] = useState("");
+  const [showaData,setShowData]=useState([]);
+  const cart = useSelector((state) => state?.user?.user[0])
+
+  
+  const mediadata = {
+    "user":cart._id ,
+    "uploadDate":date, 
+    "videoUrl":videoUrl,
+  }
 
   // Function to handle the add button click
   const handleAddClick = () => {
     setIsModalOpen(true);
   };
+
+  const handelAddvideo =()=>{
+    axios.post('http://localhost:5000/api/users/Video/',mediadata)
+    .then(response => {
+      setPostData(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  };
+
+    useEffect(() => {
+      axios.get(`http://localhost:5000/api/users/Video/find/${cart._id}`)
+      .then(response => {
+        setShowData(response.data); // Set fetched data as an object
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+    
+    },[showaData]);
+
   return (
     <>
       <div className="container mt-5">

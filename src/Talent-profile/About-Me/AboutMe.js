@@ -1,27 +1,62 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Nav from "../Navbar/Nav";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import { useDispatch,useSelector } from "react-redux";
+import axios from "axios";
 
-function AboutMe() {
+export default function AboutMe() {
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [addressCity, setAddressCity] = useState("");
+  const [addressCountry, setAddressCountry] = useState("");
   const [description, setDescription] = useState("");
+  const [postData,setPostData]=useState("")
+  const [mediaData,setMediaData]=useState("")
+  const [showmediaData,setShowMediaData]=useState([])
 
+  const cart = useSelector((state) => state?.user?.user[0])
   const handleEditClick = () => {
     setIsEditing(true);
   };
+  const data = {
+    "firstname":firstname ,
+    "lastname":lastname ,
+   "email":email ,
+    "mobile":phone,
+    "country":addressCity,
+    "city":addressCountry,
+    "description":description,
+  }
 
   const handleSaveClick = () => {
+   
     // Perform saving logic here
-    setIsEditing(false);
+        // Fetch data using axios
+        axios.put(`http://localhost:5000/api/users/${cart._id}`,data)
+          .then(response => {
+            setPostData(response.data); // Set fetched data as an object
+            console.log(response.data);
+            alert("Data Updated");
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+          setIsEditing(false);
+    
   };
 
   const [isAdding, setIsAdding] = useState(false);
   const [newLabel, setNewLabel] = useState("");
   const [newLink, setNewLink] = useState("");
+ 
+  const mediadata = {
+  "user":cart._id ,
+  "linksUrl":newLink, 
+  "label":newLabel,
+}
 
   const handleAddClick = () => {
     setIsAdding(true);
@@ -32,9 +67,40 @@ function AboutMe() {
     setNewLabel("");
     setNewLink("");
   };
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/users/find/' + cart._id)
+    .then(response => {
+      setPostData(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  
+  }, [cart])
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/MediaLink/find/${cart._id}`)
+    .then(response => {
+      setShowMediaData(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  
+  },[showmediaData] )
 
   const handleSaveClickadd = () => {
     // Perform saving logic here
+    axios.post('http://localhost:5000/api/users/MediaLink/',mediadata)
+      .then(response => {
+        setMediaData(response.data); // Set fetched data as an object
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
     setIsAdding(false);
     setNewLabel("");
     setNewLink("");
@@ -44,7 +110,7 @@ function AboutMe() {
     <>
       <div className="container mt-5 bg-[#2a2a2a]">
         <div className="flex justify-between align-center pt-3">
-          <p className="fs-5">About Me</p>
+          <p className="fs-5" >About Me</p>
           <button
             className="bg-orange-500 hover:bg-blue-700 text-white font-bold py-1 px-4 mb-1 rounded"
             onClick={handleEditClick}
@@ -58,23 +124,23 @@ function AboutMe() {
           <tbody>
             <tr className="p-5">
               <td className="pt-2">Full Name :</td>
-              <td>{name}</td>
+              <td>{postData.firstname+" "+postData.lastname}</td>
             </tr>
             <tr>
               <td>Email :</td>
-              <td>{email}</td>
+              <td>{postData.email}</td>
             </tr>
             <tr>
               <td>Phone :</td>
-              <td>{phone}</td>
+              <td>{postData.mobile}</td>
             </tr>
             <tr>
               <td>Address :</td>
-              <td>{address}</td>
+              <td>{postData.country+" "+postData.city}</td>
             </tr>
             <tr>
               <td>Description :</td>
-              <td>{description}</td>
+              <td>{postData.description}</td>
             </tr>
           </tbody>
         </table>
@@ -85,15 +151,23 @@ function AboutMe() {
               <input
                 style={{ border: "1px solid orange" }}
                 type="text"
-                placeholder="Name:"
+                placeholder="firstname"
                 className="mb-2 p-1 bg-gray-800 w-[32rem]"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={firstname}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+               <input
+                style={{ border: "1px solid orange" }}
+                type="text"
+                placeholder="lastname"
+                className="mb-2 p-1 bg-gray-800 w-[32rem]"
+                value={lastname}
+                onChange={(e) => setLastName(e.target.value)}
               />
               <input
                 style={{ border: "1px solid orange" }}
                 type="email :"
-                placeholder="Email"
+                placeholder="email"
                 className="mb-2 p-1 bg-gray-800 w-[32rem]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -109,10 +183,18 @@ function AboutMe() {
               <input
                 style={{ border: "1px solid orange" }}
                 type="text"
-                placeholder="Address:"
+                placeholder="Address City:"
                 className="mb-2 p-1 bg-gray-800 w-[32rem]"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={addressCity}
+                onChange={(e) => setAddressCity(e.target.value)}
+              />
+              <input
+                style={{ border: "1px solid orange" }}
+                type="text"
+                placeholder="Address Country:"
+                className="mb-2 p-1 bg-gray-800 w-[32rem]"
+                value={addressCountry}
+                onChange={(e) => setAddressCountry(e.target.value)}
               />
               <textarea
                 style={{ border: "1px solid orange" }}
@@ -143,23 +225,34 @@ function AboutMe() {
           </button>
         </div>
         <table className="table-auto">
-          <thead></thead>
-          <tbody>
-            <tr className="p-5">
-              <td className="pt-2">
-                <i className="bx bxl-facebook fs-3 bg-[orange]"></i>
-              </td>
-              <td className="pt-2">Facebook</td>
-              <td>https://www.facebook.com/</td>
-              <td>
-                <i className="bx bx-edit fs-3 p-1 bg-primary"></i>
-              </td>
-              <td>
-                <RiDeleteBin2Line className="fs-3" style={{ color: "red" }} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <thead></thead>
+    <tbody>
+      {/* Use the map method to iterate over the data array */}
+      {showmediaData.map((item, index) => (
+        <tr key={index} className="p-5">
+          <td className="pt-2">
+          {item.label==="Facebook" ? (
+              <i className="bx bxl-facebook fs-3 bg-[orange]"></i>
+            ) : item.label==="LinkedIn" ? (
+              <i className="bx bxl-linkedin fs-3 bg-[black]"></i>
+            ) : item.label==="Google" ? (
+              <i className="bx bx-google fs-3 p-1 bg-primary"></i>
+            ):item.label==="Gmail" ? (
+              <i className="bx bx-gmail fs-3 p-1 bg-primary"></i>
+              ):(<i className="bx bx-avatar fs-3 p-1 bg-primary"></i>)
+              }
+          </td>
+          <td className="pt-2">{item.label}</td>
+          <td>{item.linksUrl}</td>
+          <td>
+          <i className="bx bx-edit fs-4 text-success"></i>
+                <RiDeleteBin2Line className="fs-4 text-danger" />
+          </td>
+        
+        </tr>
+      ))}
+    </tbody>
+  </table>
 
         {isAdding && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
@@ -200,5 +293,3 @@ function AboutMe() {
     </>
   );
 }
-
-export default AboutMe;
