@@ -92,49 +92,23 @@ function Skills() {
             <div className=" container flex flex-column bg-[#2a2a2a] p-4 rounded">
               <p className="fs-5 pb-4">Skills</p>
               <label className="mb-2">Dance:</label>
-              <select
-                className="mb-2 p-1 bg-[#2a2a2a] border-b border-gray-500 mb-5 w-[32rem]"
-                value={dance}
-                onChange={(e) => setDance(e.target.value)}
-              >
-                <option value="">Select Dance</option>
-                <option value="classical">Classical Dance</option>
-                <option value="contemporary">Contemporary Dance</option>
-                <option value="hip-hop">Hip Hop Dance</option>
-                <option value="other">Other</option>
-                {/* Add more dance options */}
-              </select>
+              <input
+              type="text"
+              className="mb-2 p-1 bg-[#2a2a2a] border rounded border-gray-800 w-[32rem]"
+              value={dance}
+              onChange={(e) => setDance(e.target.value)}
+            />
+              
               <label className="mb-2">Dance Types:</label>
-              <select
-                className="mb-2 p-1 bg-[#2a2a2a] border-b border-gray-500 w-[32rem]"
-                value={danceTypes}
-                onChange={(e) => setDanceTypes(e.target.value)}
-              >
-                <option value="">Select Dance Type</option>
-                {/* Add dance type options based on selected dance */}
-                {dance === "classical" && (
-                  <>
-                    <option value="ballet">Ballet</option>
-                    <option value="kathak">Kathak</option>
-                    <option value="odissi">Odissi</option>
-                  </>
-                )}
-                {dance === "contemporary" && (
-                  <>
-                    <option value="modern">Modern Contemporary</option>
-                    <option value="jazz">Jazz</option>
-                  </>
-                )}
-                {dance === "hip-hop" && (
-                  <>
-                    <option value="breakdance">Breakdance</option>
-                    <option value="locking">Locking</option>
-                    <option value="popping">Popping</option>
-                  </>
-                  
-                )}
-                {/* Add more dance type options */}
-              </select>
+              <input
+              type="text"
+              className="mb-2 p-1 bg-[#2a2a2a] border rounded border-gray-800 w-[32rem]"
+              value={danceTypes}
+              onChange={(e) => setDanceTypes(e.target.value)}
+            />
+              
+                
+    
               <div className="flex justify-center mt-5">
                 <button
                   className="bg-[orange] hover:bg-gray-700 text-white font-bold py-1 px-4 mr-2 rounded"

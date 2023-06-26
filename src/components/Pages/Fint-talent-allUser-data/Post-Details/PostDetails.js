@@ -1,37 +1,122 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 
 function PostDetails() {
   const [isMessageModelOpen, setMessageModelOpen] = useState(false);
   const [share, setshare] = useState(false);
   const [ShowHire, setShowHire] = useState(false);
   const [messageSend, setmessageSend] = useState(false);
-
   // State variables to store the input values
-  const [fullName, setFullName] = useState("");
-  const [title, setTitle] = useState("");
-  const [messageType, setMessageType] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessageType] = useState("");
+  const cart = useSelector((state) => state?.user?.user[0])
+
+  
 
   // Function to handle input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "fullName") {
-      setFullName(value);
-    } else if (name === "title") {
-      setTitle(value);
-    } else if (name === "messageType") {
-      setMessageType(value);
-    }
+
+  const [hireEmail,sethireEmail]=useState("");
+  const [fullname,setFullName]=useState("");
+
+
+  const handleHireClick = () => {
+    // Perform any necessary actions with the input values
+    // Display a confirmation message or perform other logi
+    setmessageSend(true);
+      const data = {
+      fullname:fullname,
+      senderName:cart.firstname+" "+cart.lastname,
+      email:hireEmail,
+
+     };
+        
+     axios.post(`http://localhost:5000/api/hire/Noti`,data)
+      .then(response => {
+        console.log(response.data);
+       
+      })
+      .catch(error => {
+        alert("email doesn't exist")
+      });
+      setShowHire(false);
+      //setMessageModelOpen(false);
+      return;
+      
+      
   };
+  
+  //All Show Data
+  const [showskill,setSkill]=useState([]);
+  const [showproject,setProject]=useState([]);
+  
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Skill/find/${cart._id}`)
+    .then(response => {
+      setSkill(response.data); // Set fetched data as an object
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, [showskill])
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Project/find/${cart._id}`)
+    .then(response => {
+      setProject(response.data); // Set fetched data as an object
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, [showproject])
+
+  /*useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Skill/find/${cart._id}`)
+    .then(response => {
+      setAbout(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, [showabout])
+*/
+  
 
   // Function to handle the send button click
   const handleSendClick = () => {
     // Perform any necessary actions with the input values
-    // Display a confirmation message or perform other logic
+    // Display a confirmation message or perform other logi
     setmessageSend(true);
+      const data = {
+      senderName:cart.firstname+" "+cart.lastname,
+      email:email,
+
+     };
+        
+     axios.post(`http://localhost:5000/api/Message/Noti`,data)
+      .then(response => {
+        console.log(response.data);
+       
+      })
+      .catch(error => {
+        alert("email doesn't exist")
+      });
+      
+      setShowHire(false);
+      return;
+      
+      
   };
   const openMessageModel = () => {
     setMessageModelOpen(true);
-  };
+    setEmail("");
+    setMessageType("");
+
+  }
+
+  
 
   return (
     <>
@@ -49,9 +134,8 @@ function PostDetails() {
               />
             </div>
             <div className="title flex-1">
-              <p className="m-0 p-0 pt-2 fs-4">Emili Bose</p>
+              <p className="m-0 p-0 pt-2 fs-4">{cart?.firstname+" "+cart?.lastname}</p>
               <p className="border-b border-[smokewhite] pb-3 w-[90%] ">
-                Female
               </p>
               <button
                 className="btn btn-warning text-white"
@@ -138,26 +222,19 @@ function PostDetails() {
             <h2 className="text-xl font-bold mb-4 text-center"> Message</h2>
             <input
               type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={fullName}
-              onChange={handleInputChange}
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="border border-b  border-[smokewhite] bg-[#8d8c8c54] border-none outline-none px-3 py-2 rounded mb-2 w-full"
             />
+          
             <input
               type="text"
-              name="title"
-              placeholder="Title"
-              value={title}
-              onChange={handleInputChange}
-              className="border-b  border-[smokewhite] bg-[#8d8c8c54] border-none outline-none mt-3 px-3 py-2 rounded mb-2 w-full"
-            />
-            <input
-              type="text"
-              name="messageType"
-              placeholder="Message Type"
-              value={messageType}
-              onChange={handleInputChange}
+              name="message"
+              placeholder="Message"
+              value={message}
+              onChange={(e) => setMessageType(e.target.value)}
               className="border-b  border-[smokewhite] bg-[#8d8c8c54] border-none outline-none mt-3 px-3 py-2 rounded mb-2 w-full"
             />
             <button
@@ -184,7 +261,7 @@ function PostDetails() {
               ></i>
             </div>
             <p className="text-center pt-3 pb-3 fs-3 fw-bold">Send !</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            <p>{cart.firstname+" "+cart.lastname}! Message Send Successfully </p>
           </div>
         </div>
       ) : null}
@@ -200,16 +277,16 @@ function PostDetails() {
               type="text"
               name="fullName"
               placeholder="Full Name"
-              value={fullName}
-              onChange={handleInputChange}
+              value={fullname}
+              onChange={(e) => setFullName(e.target.value)}
               className="border border-b  border-[smokewhite] bg-[#8d8c8c54] border-none outline-none px-3 py-2 rounded mb-2 w-full"
             />
             <input
               type="text"
-              name="title"
+              name="email"
               placeholder="Email"
-              value={title}
-              onChange={handleInputChange}
+              value={hireEmail}
+              onChange={(e) => sethireEmail(e.target.value)}
               className="border-b  border-[smokewhite] bg-[#8d8c8c54] border-none outline-none mt-3 px-3 py-2 rounded mb-2 w-full"
             />
             <select className="border-b  border-[smokewhite] bg-[#8d8c8c54] border-none outline-none mt-3 px-3 py-2 rounded mb-2 w-full">
@@ -221,7 +298,7 @@ function PostDetails() {
               <option value="high">High</option>
             </select>
             <button
-              onClick={handleSendClick}
+              onClick={handleHireClick}
               className="btn btn-primary text-white mt-3"
             >
               Send
@@ -242,68 +319,26 @@ function PostDetails() {
 
       <div className="container mt-5">
         <table class="table-fixed">
-          <tbody>
-            <tr>
-              <td> Year</td>
+        <tbody>
+            {showproject.map((item, index) => (
+             
+            <tr key={index}>
               <td>
-                {" "}
-                Job Tittle <p>Project Type</p>{" "}
+              Date <p>{item.date}</p></td>
+              <td>
+                
+              Name <p>{item.projectName}</p>
               </td>
               <td>
-                Project Name <p>Director/Company</p>{" "}
+                Director <p>{item.director}</p>{" "}
               </td>
-              <td>Location </td>
+              <td>Author <p>{item.author}</p>{" "} </td>
             </tr>
-            <tr>
-              <td> Year</td>
-              <td>
-                {" "}
-                Job Tittle <p>Project Type</p>{" "}
-              </td>
-              <td>
-                Project Name <p>Director/Company</p>{" "}
-              </td>
-              <td>Location </td>
-            </tr>
-            <tr>
-              <td> Year</td>
-              <td>
-                {" "}
-                Job Tittle <p>Project Type</p>{" "}
-              </td>
-              <td>
-                Project Name <p>Director/Company</p>{" "}
-              </td>
-              <td>Location </td>
-            </tr>
-            <tr>
-              <td> Year</td>
-              <td>
-                {" "}
-                Job Tittle <p>Project Type</p>{" "}
-              </td>
-              <td>
-                Project Name <p>Director/Company</p>{" "}
-              </td>
-              <td>Location </td>
-            </tr>
-            <tr>
-              <td> Year</td>
-              <td>
-                {" "}
-                Job Tittle <p>Project Type</p>{" "}
-              </td>
-              <td>
-                Project Name <p>Director/Company</p>{" "}
-              </td>
-              <td>Location </td>
-            </tr>
-            <tr></tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            
+          ))}
           </tbody>
+
+          
         </table>
       </div>
       <div className="container">
@@ -312,26 +347,12 @@ function PostDetails() {
         </p>
         <table class="table-fixed mt-4">
           <tbody>
-            <tr>
-              <td>Language</td>
-              <td>English, Hindi ,Pashtoo</td>
-            </tr>
-            <tr>
-              <td>Accent</td>
-              <td>NewYork</td>
-            </tr>
-            <tr>
-              <td>Dance Style</td>
-              <td>Poping, Break Dance</td>
-            </tr>
-            <tr>
-              <td>Vocal Type</td>
-              <td>Soprano</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-            </tr>
+          {showskill.map((item, index) => (
+      <tr key={index}>
+        <td>{item.skillName}</td>
+        <td>{item.typeofSkill}</td>
+      </tr>
+          ))}
           </tbody>
         </table>
       </div>
@@ -341,17 +362,7 @@ function PostDetails() {
           About Me
         </p>
         <div className=" mt-2 mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, ipsum
-          quos! Voluptatum, error corrupti incidunt, fuga sunt saepe aperiam,
-          obcaecati magni ipsam rem voluptatibus suscipit iusto reprehenderit
-          perspiciatis? At, quisquam? Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Magni commodi molestias odio adipisci qui eveniet,
-          officia hic expedita dolore ducimus fugiat non maxime. Reiciendis ab
-          odio consequuntur ipsum saepe quas?Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Expedita eligendi odio, repellat
-          molestiae natus corporis magni dolor obcaecati, dicta cumque quod?
-          Soluta obcaecati sequi quas perferendis consequatur ea doloremque
-          assumenda.
+          {cart.description}
         </div>
       </div>
 

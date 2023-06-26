@@ -1,5 +1,5 @@
 import { Route, Routes ,Outlet } from 'react-router-dom';
- 
+import { redirect } from 'react-router-dom'
 import NewsPage from './components/Pages/NewsPage';
 import NewsDetailsPage from './components/Pages/NewsDetailsPage';
  
@@ -34,9 +34,12 @@ import Videos from './Talent-profile/Videos/Videos';
 import FindTalentUserData from './components/Pages/Fint-talent-allUser-data/FindTalentUserData';
 import Footer from './components/Footer';
 import Postdetails from './components/Pages/Fint-talent-allUser-data/Post-Details/PostDetails';
+import { useSelector } from 'react-redux';
  
 
+
 function App() {
+  const cart = useSelector((state) => state?.user?.user[0])
   return (
     <>
 {/* 
@@ -93,6 +96,7 @@ function App() {
           <Route path="faq" element={<FaqPage />} />
           <Route path="rules" element={<RulesPage />} />
           <Route path="find-talent" element={<FindTalentUserData/>} />
+          
           
         
       

@@ -17,19 +17,17 @@ function Achivements() {
   const handleAddClick = () => {
     setIsAdding(true);
   };
-  const handleEditClick=()=>{
-
-    axios.put(`http://localhost:5000/api/users/Achivement/find/${cart._id}`)
-    .then(response => {
-      setEditData(response.data); // Set fetched data as an object
+  const handleDeleteClick = async (ID) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/users/Achivement/${ID}`);
       console.log(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
-
-  }
- 
+      // Perform any additional actions after successful deletion
+    } catch (error) {
+      console.error(error);
+      // Handle error appropriately (e.g., display error message)
+    }
+  };
+  
   useEffect(() => {
     axios.get(`http://localhost:5000/api/users/Achivement/find/${cart._id}`)
     .then(response => {
@@ -90,9 +88,10 @@ function Achivements() {
               <div className="title-cart">
                 <p className="fs-5">{item.programName}</p>
               </div>
-              <div className="icons flex gap-2 pe-3">
-                <i className="bx bx-edit fs-4 text-success"></i>
-                <RiDeleteBin5Line className="fs-4 text-danger" />
+              <div className="icons flex gap-2 pe-3" >
+                <button onClick={() => handleDeleteClick(item._id)}>
+                  <RiDeleteBin5Line className="fs-4 text-danger" />
+                  </button>
               </div>
             </div>
             <p className="ps-2 pe-2">

@@ -78,6 +78,18 @@ function Experinces() {
     setIsModalOpen(false);
   };
 
+  const handleDeleteClick = async (ID) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/users/Experience/${ID}`);
+      console.log(response.data);
+      // Perform any additional actions after successful deletion
+    } catch (error) {
+      console.error(error);
+      // Handle error appropriately (e.g., display error message)
+    }
+  };
+  
+
   return (
     <>
       <div className="container mt-5">
@@ -101,10 +113,11 @@ function Experinces() {
           <div className="title-cart">
             <p className="fs-5">{technology.title}</p>
           </div>
-          <div className="icons flex gap-2 pe-3">
-            <i className="bx bx-edit fs-4 text-success"></i>
-            <RiDeleteBin5Line className="fs-4 text-danger" />
-          </div>
+          <div className="icons flex gap-2 pe-3" >
+                <button onClick={() => handleDeleteClick(technology._id)}>
+                  <RiDeleteBin5Line className="fs-4 text-danger" />
+                  </button>
+              </div>
         </div>
         <div className="time_&_date flex gap-5">
           <div className="flex justify-center">

@@ -2,25 +2,49 @@ import React,{useState,useEffect} from "react";
 import "../../css/Find_telent.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 function FindTalentPage() {
   const cart = useSelector((state) => state?.user?.user[0])
-  const [email,setEmail]=useState("");
+  const [email,setEmail] = useState(null);
+  const history=useNavigate();
   
-  const emailSend=()=>{
-
-    axios.get("http://localhost:5000/api/users/Noti", email)
-      .then((response) => {
-        console.log("Email sent successfully:", response.data);
-        // Reset form fields
-
-      })
-      .catch((error) => {
-        console.error("Error occurred while sending the email:", error);
-      });
+  
+  const  emailSend = () =>{
+  if (!email) {
+    alert('Please Enter your Email');
+    return;
   }
+  else{
+
+    
+    console.log(email)
+    
+    const data = {
+     email:email,
+   };
+      
+   axios.post(`http://localhost:5000/api/users/Noti`,data)
+    .then(response => {
+      console.log(response.data);
+     
+    })
+    .catch(error => {
+      alert("email doesn't exist")
+    });
+    
+    alert ("Email is Send")
+    return;
+  }
+  
+  
+ }
+ const Go=()=>{
+  history("/postdetails");
+ }
+
 
   return (
     <>
@@ -207,7 +231,7 @@ function FindTalentPage() {
         </div>
         <div className="left d-flex justify-content-center align-items-center">
           <hr style={{ width: "2rem", height: "3px", background: "orange" }} />{" "}
-          <p className="ps-2"> Quick Links</p>
+          <p className="ps-2" onClick={Go}> Quick Links</p>
         </div>
       </div>
 
