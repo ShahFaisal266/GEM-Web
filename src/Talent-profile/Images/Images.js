@@ -21,7 +21,7 @@ function Images() {
     .get(`http://localhost:5000/api/users/Image/find/${cart._id}`)
     .then((response) => {
       setShowData(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     })
     .catch((error) => {
       console.error("Error fetching images:", error);

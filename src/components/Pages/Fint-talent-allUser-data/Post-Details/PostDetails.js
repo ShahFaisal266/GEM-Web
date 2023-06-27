@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+import ReactPlayer from "react-player";
 
 function PostDetails() {
   const [isMessageModelOpen, setMessageModelOpen] = useState(false);
@@ -50,7 +50,9 @@ function PostDetails() {
   //All Show Data
   const [showskill,setSkill]=useState([]);
   const [showproject,setProject]=useState([]);
-  
+  const [showvideo,setVideo]=useState([]);
+  const [showimage,setImage]=useState([]);
+
   useEffect(() => {
     axios.get(`http://localhost:5000/api/users/Skill/find/${cart._id}`)
     .then(response => {
@@ -71,17 +73,28 @@ function PostDetails() {
     });
   }, [showproject])
 
-  /*useEffect(() => {
-    axios.get(`http://localhost:5000/api/users/Skill/find/${cart._id}`)
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Image/find/${cart._id}`)
     .then(response => {
-      setAbout(response.data); // Set fetched data as an object
+      setImage(response.data); // Set fetched data as an object
       console.log(response.data);
     })
     .catch(error => {
       console.error('Error fetching data:', error);
     });
-  }, [showabout])
-*/
+  }, [showimage])
+
+ useEffect(() => {
+    axios.get(`http://localhost:5000/api/users/Video/find/${cart._id}`)
+    .then(response => {
+      setVideo(response.data); // Set fetched data as an object
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, [showvideo])
+
   
 
   // Function to handle the send button click
@@ -128,8 +141,8 @@ function PostDetails() {
           <div className="Left-main flex mt-5 gap-4">
             <div className="Img">
               <img
-                src="https://images.unsplash.com/photo-1619418170841-afea868fdc58?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmVhdXRpZnVsbCUyMGdpcmx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-                alt=""
+                src={cart.picture}
+                 alt=""
                 className="w-[7rem] h-[9rem] object-cover"
               />
             </div>
@@ -374,51 +387,15 @@ function PostDetails() {
           <h4 className="ps-2"> Images</h4>
         </span>
         <div className="grid gap-y-4 gap-x-4 grid-cols-3  pt-[3rem] pb-[1rem]">
-          <img
-            src="https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1491796014055-e6835cdcd4c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1495745966610-2a67f2297e5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1568819107248-c5ebc8b62fad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1591681354784-c684e483dae0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://plus.unsplash.com/premium_photo-1685195883710-fe01b26e7a4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1550429365-ca98c0f9e982?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJldHR5JTIwZ2lybHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bGFwdG9wfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0Y2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="w-full h-[10rem] object-cover rounded"
-          />
+        {showimage.map((imageUrl, index) => (
+        <img
+          src={imageUrl.imageUrl}
+          alt={`Image ${index}`}
+          className="w-full h-[10rem] object-cover rounded"
+          key={index}
+        />
+      ))}
+         
         </div>
       </div>
 
@@ -430,30 +407,18 @@ function PostDetails() {
           <h4 className="ps-2"> Videos</h4>
         </span>
         <div className="grid gap-y-4 gap-x-4 grid-cols-3  pt-[3rem] pb-[1rem]">
-          <video className="w-full h-auto" controls>
-            <source src="/media/cc0-videos/flower.webm" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <video className="w-full h-auto" controls>
-            <source src="path_to_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <video className="w-full h-auto" controls>
-            <source src="path_to_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <video className="w-full h-auto" controls>
-            <source src="path_to_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <video className="w-full h-auto" controls>
-            <source src="path_to_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <video className="w-full h-auto" controls>
-            <source src="path_to_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        {showvideo.map((video) => (
+        <ReactPlayer
+          key={video._id}
+          url={video.videoUrl}
+          controls
+          width="100%"
+        //height="50%"
+        //className="w-full h-auto"
+        />
+      ))}
+         
+         
         </div>
       </div>
     </>

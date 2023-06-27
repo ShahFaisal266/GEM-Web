@@ -55,35 +55,21 @@ function App() {
         <Route path='projects' element={<Projects/>} />
         <Route  path='images' element={<Images/>}/>
         <Route path='videos' element={<Videos/>}/>
-       
         </Route>
-
         <Route path='/postdetails' element={<Postdetails/>}   />
        </Routes>
-
-
-
       <Routes>
-         
           <Route index element={<Home />} />
-         
-        
-     
-        
-          <Route path="events" element={<EventPage />} />
-          
+          <Route path="events" element={<EventPage />} /> 
           <Route
             path="/events-Details/:id"
             element={<EventDetailsPage />}
           />
           <Route path="talent-board" element={<TalentBoardPage />} />
-          
           <Route path="news" element={<NewsPage />} />
           <Route path="/news-details/:id" element={<NewsDetailsPage />} />
-         
-         
-          <Route path="signup" element={<Signup />} />
-          <Route path="login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="team" element={<TeamPage />} />
           <Route path="team/:teamDetails" element={<TeamDetails />} />
           <Route
@@ -96,19 +82,12 @@ function App() {
           <Route path="faq" element={<FaqPage />} />
           <Route path="rules" element={<RulesPage />} />
           <Route path="find-talent" element={<FindTalentUserData/>} />
-          
-          
-        
-      
         <Route
           path="/"
           element={<Layout headerVariant="cs-site_header_full_width" />}
         >
-          
         </Route>
-       
       </Routes>
-
       <Footer/>
     </>
   );

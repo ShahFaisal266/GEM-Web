@@ -1,28 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
+import app from "../firebase";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import axios from "axios";
+import { useSelector } from "react-redux";
 const Nav = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [image, setImage] = useState("path/to/default/image.jpg");
+  //const [image, setImage] = useState("path/to/default/image.jpg");
   const [isEditing, setIsEditing] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [profile, setprofile] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [postData,setPostData]=useState("");
+  const [picture,setPicture]=useState("");
+  //const [image,showImage]=useState("");
+  const cart = useSelector((state) => state?.user?.user[0]);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
   const handleImageChange = (event) => {
-    setSelectedImage(URL.createObjectURL(event.target.files[0]));
+    setSelectedImage(event.target.files[0]);
   };
+ 
 
   const handleSaveImage = () => {
     if (selectedImage) {
-      setImage(selectedImage);
-      setSelectedImage(null);
+      setPicture(selectedImage);
+     // setSelectedImage(null);
     }
     setIsEditing(false);
   };
@@ -32,6 +40,9 @@ const Nav = () => {
     setIsEditing(false);
   };
 
+  
+
+  //image
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -42,14 +53,70 @@ const Nav = () => {
     } else{
       alert("Passwords match, proceed with further actions")
     }
-
+    if(cart.password!==currentPassword)
+    {
+      
+      alert("Current Password is Wrong");
+      return; 
+    }
     // Handle saving the changes here
     // ...
-
     // Reset the form fields
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
+    if (selectedImage) {
+      const fileName = "PROFILE" + "/"+ cart._id ;
+      const storage = getStorage(app);
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, selectedImage);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          console.error("Error uploading image:", error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("Image uploaded:", downloadURL);
+            setPicture(downloadURL);
+            const data = {
+              picture:downloadURL,
+              password:newPassword 
+            }
+            axios.put(`http://localhost:5000/api/users/${cart._id}`,data)
+            .then(response => {
+              setPostData(response.data); // Set fetched data as an object
+              console.log(response.data);
+              alert("Data Updated");
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
+            // Perform further actions with the uploaded image data, such as saving it to the server or updating state
+          });
+        }
+      );
+    }
+
+    
   };
 
   return (
@@ -149,7 +216,7 @@ const Nav = () => {
                       to="videos"
                       class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                     >
-                      Vides
+                      Videos
                     </Link>
                   </div>
                 </div>
@@ -189,8 +256,8 @@ const Nav = () => {
                       <span class="sr-only">Open user menu</span>
                       <img
                         class="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        src={cart?.picture}
+                       alt=""
                       />
                     </button>
                   </div>
@@ -221,7 +288,7 @@ const Nav = () => {
                             <div className="flex items-center">
                               <div className="relative">
                                 <img
-                                  src={image}
+                                  src={picture}
                                   alt="User"
                                   className="w-16 h-16 rounded-full cursor-pointer"
                                   onClick={() => setIsEditing(true)}
@@ -331,6 +398,7 @@ const Nav = () => {
                               <button
                                 className="px-4 py-2 text-white bg-warning rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                                 type="submit"
+                              
                               >
                                 Save Changes
                               </button>

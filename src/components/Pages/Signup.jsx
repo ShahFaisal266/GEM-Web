@@ -5,7 +5,8 @@ import PageHeading from "../PageHeading";
 import SectionHeading from "../SectionHeading";
 import Spacing from "../Spacing";
 import ContactInfoWidget from "../Widget/ContactInfoWidget";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Signup() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -13,6 +14,20 @@ export default function Signup() {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const history=useNavigate();
+  //First Page data
+  const [firstname,setFirstName]=useState("");
+  const [lastname,setLastName]=useState("");
+  const [mobile,setMobile]=useState("");
+  const [email,setEmail]=useState("");
+//Second
+  const [date,setDate]=useState("");
+  const [city,setCity]=useState("");
+  const [country,setCountry]=useState("");
+  //third:
+  const [password,setPassword]=useState("");
+  const [confirmpassword,setConfirmPassword]=useState("");
+
 
   pageTitle("Signup");
   useEffect(() => {
@@ -46,7 +61,63 @@ export default function Signup() {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+  // Function to handle saving the selected date
+const handleSaveDate = () => {
+  const selectedDate = new Date(
+    parseInt(selectedYear),
+    parseInt(selectedMonth) - 1,
+    parseInt(selectedDay)
+  );
+  setDate(selectedDate);
+};
+  const createAccount = () => {
+    handleSaveDate();
 
+    if(confirmpassword!==password)
+    {
+     return alert("Wrong!Not Machting")
+    }
+    else{
+      if(firstname===""&&lastname===""&&password===""&&country===""&&city===""&&mobile===""&&date==="")
+      {
+        return alert("All Fields are Necessaary")
+      }
+    // Make the Signup request
+    axios.post("http://localhost:5000/api/auth/register", {
+        firstname:firstname,
+        lastname:lastname,
+        password: password,
+        country:country,
+        city:city,
+        email:email,
+        mobile:mobile,
+        date:date
+      })
+      .then(response => {
+        //(response.data); // Set fetched data as an object
+        console.log(response.data);
+        alert("Succefully Registered")
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        alert("Something Wrong")
+      });
+      setConfirmPassword("");
+      setCity("")
+      setCountry("")
+      setDate("");
+      setEmail("")
+      setDate("")
+      setFirstName("")
+      setLastName("")
+      setSelectedMonth("")
+      setSelectedYear("")
+      setSelectedDay("")
+      history("/login?#")
+      return;
+    }
+      
+  };
   const renderForm = () => {
     switch (currentStep) {
       case 1:
@@ -58,6 +129,8 @@ export default function Signup() {
                 type="text"
                 className="cs-form_field"
                 placeholder="First Name"
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstname}
               />
               <Spacing lg="20" md="20" />
             </Div>
@@ -67,6 +140,8 @@ export default function Signup() {
                 type="text"
                 className="cs-form_field"
                 placeholder="Last Name"
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastname}
               />
               <Spacing lg="20" md="20" />
             </Div>
@@ -76,6 +151,8 @@ export default function Signup() {
                 type="text"
                 className="cs-form_field"
                 placeholder="example@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
               <Spacing lg="20" md="20" />
             </Div>
@@ -85,6 +162,8 @@ export default function Signup() {
                 type="text"
                 className="cs-form_field"
                 placeholder="Mobile #"
+                onChange={(e) => setMobile(e.target.value)}
+                value={mobile}
               />
               <Spacing lg="20" md="20" />
             </Div>
@@ -107,36 +186,29 @@ export default function Signup() {
           <form action="#" className="row">
             <Div className="col-sm-6">
               <label className="cs-primary_color">Country</label>
-              <select
-                id="year"
-                value={selectedYear}
-                onChange={handleYearChange}
+               
+                <input
+                type="text"
+                placeholder="country"
                 className="cs-form_field"
-              >
-                <option value="">Country</option>
-                {Array.from({ length: 18 }, (_, i) => 2023 + i).map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
+                onChange={(e) => setCountry(e.target.value)}
+                value={country}
+              />
+            
+                
+              
               <Spacing lg="20" md="20" />
             </Div>
             <Div className="col-sm-6">
               <label className="cs-primary_color">City</label>
-              <select
-                id="year"
-                value={selectedYear}
-                onChange={handleYearChange}
+              <input
+                type="text"
+                placeholder="City"
                 className="cs-form_field"
-              >
-                <option value="">City</option>
-                {Array.from({ length: 18 }, (_, i) => 2023 + i).map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
+                onChange={(e) => setCity(e.target.value)}
+                value={city}
+              />
+                
               <Spacing lg="20" md="20" />
             </Div>
             <Div className="col-sm-4">
@@ -167,7 +239,15 @@ export default function Signup() {
                 <option value="">Month</option>
                 <option value="Jan">January</option>
                 <option value="Feb">February</option>
-                <option value="Mar">March</option>
+                <option value="Mar">Aril</option>
+                <option value="Mar">May</option>
+                <option value="Mar">June</option>
+                <option value="Mar">July</option>
+                <option value="Mar">Aug</option>
+                <option value="Mar">Sep</option>
+                <option value="Mar">Oct</option>
+                <option value="Mar">Nov</option>
+                <option value="Mar">Dec</option>
               </select>
               <Spacing lg="20" md="20" />
             </Div>
@@ -229,6 +309,9 @@ export default function Signup() {
                 type="text"
                 className="cs-form_field"
                 placeholder="Enter Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                
               />
               <Spacing lg="25" md="25" />
             </Div>
@@ -238,6 +321,8 @@ export default function Signup() {
                 type="text"
                 className="cs-form_field"
                 placeholder="Confirm Password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmpassword}
               />
               <Spacing lg="25" md="25" />
             </Div>
@@ -252,7 +337,7 @@ export default function Signup() {
               </label>
             </Div>
             <Div className="col-sm-12">
-              <button className="cs-btn cs-style1" onClick={nextStep}>
+              <button className="cs-btn cs-style1" onClick={createAccount}>
                 <span>Create Account</span>
               </button>
             </Div>

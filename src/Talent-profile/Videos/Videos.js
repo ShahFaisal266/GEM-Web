@@ -31,7 +31,7 @@ function Videos() {
     axios.get(`http://localhost:5000/api/users/Video/find/${cart._id}`)
     .then(response => {
       setShowData(response.data); // Set fetched data as an object
-      console.log(response.data);
+      //console.log(response.data);
     })
     .catch(error => {
       console.error('Error fetching data:', error);
