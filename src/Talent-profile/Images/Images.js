@@ -14,17 +14,24 @@ function Images() {
   const [image, setImage] = useState("");
   const [file, setFile] = useState([]);
 
-  useEffect(() => {
+
+
+  const getData = () =>{
     axios
-      .get(`http://localhost:5000/api/users/Image/find/${cart._id}`)
-      .then((response) => {
-        setShowData(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching images:", error);
-      });
-  }, [cart._id]);
+    .get(`http://localhost:5000/api/users/Image/find/${cart._id}`)
+    .then((response) => {
+      setShowData(response.data);
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching images:", error);
+    });
+
+  }
+
+  useEffect(() => {
+    getData()
+      }, []);
 
   const handleAddClick = () => {
     setIsModalOpen(true);
@@ -36,7 +43,7 @@ function Images() {
 
   const handleClick = () => {
     if (selectedImage) {
-      const fileName = new Date().getTime() + selectedImage.name;
+      const fileName = "PICSGEM" + "/"+ new Date().getTime() + selectedImage.name;
       const storage = getStorage(app);
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, selectedImage);
@@ -55,6 +62,7 @@ function Images() {
               console.log("Upload is running");
               break;
           }
+
         },
         (error) => {
           // Handle unsuccessful uploads
@@ -75,6 +83,8 @@ function Images() {
             .then(response => {
               setPostData(response.data); // Set fetched data as an object
               console.log(response.data);
+              getData();
+           
             })
             .catch(error => {
               console.error('Error fetching data:', error);
